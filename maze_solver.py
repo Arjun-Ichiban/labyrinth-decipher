@@ -24,20 +24,8 @@ infinite = sys.maxsize
 #the cell which can be reached from a given cell
 direction = [[0, 1], [0, -1], [1, 0], [-1, 0]]
 
-# grid = []
-grid=[
-[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-[0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0],
-[0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-[0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
-[0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-[0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0],
-[0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-[0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
-]
+#the actual maze 0-> wall and 1-> path
+grid = []
 
 #dist array stores the minimum distance of each cell from the starting point 
 dist = []
@@ -56,8 +44,9 @@ def initializeArrays(rows, cols):
 def valid(x, y):
     return x>=0 and x<len(grid) and y>=0 and y<len(grid[0])
 
-def solveMaze(rows, cols):
-
+def solveMaze(rows, cols, grid1):
+    global grid
+    grid = grid1
     initializeArrays(rows, cols)
 
     dist[0][0] = 0
@@ -108,4 +97,4 @@ def solveMaze(rows, cols):
             print("\n")
 
 
-solveMaze(11, 11)
+# solveMaze(11, 11)

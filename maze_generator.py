@@ -2,6 +2,7 @@
 #https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
 
 import random
+import time
 
 #class Cell stores the coordinates of a cell (row, column)
 class Cell:
@@ -45,14 +46,21 @@ def adjacentPaths(cell):
     return adjacentCells(cell, 1)
 
 #connect's the two cells making it a path (makes the cells in between the two cells a path)
-def connect(cell1, cell2):
+def connect(cell1, cell2, root, c, tiles, col_width, row_height):
     grid[cell1.x][cell1.y] = 1
-    grid[cell2.x][cell2.y] = 1
+    #grid[cell2.x][cell2.y] = 1
     x = (cell1.x+cell2.x)//2
     y = (cell1.y+cell2.y)//2
     grid[x][y] = 1
+    xx = cell1.x
+    yy = cell1.y
+    tiles[xx][yy] = c.create_rectangle(yy*col_width, xx*row_height, (yy+1)*col_width, (xx+1)*row_height, fill="white")
+    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="white")
+    root.update_idletasks()               
+    root.update()
+    time.sleep(0.2)
 
-def createMaze(rows, cols):
+def createMaze(rows, cols, root, c, tiles, col_width, row_height):
 
     global grid
     # 0 -> wall 1 -> path
@@ -62,8 +70,14 @@ def createMaze(rows, cols):
     #Prim's Algorithm
 
     #starting point (1, 1)
+    x = 1
+    y = 1
     sp = Cell(1, 1)
     grid[1][1] = 1
+    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="white")
+    root.update_idletasks()               
+    root.update()
+    time.sleep(0.2)
 
     #stores a set of adjacent walls of the choosen paths
     unvisitedCells = set()
@@ -79,7 +93,7 @@ def createMaze(rows, cols):
         #choose a random path adjacent to the wall and connect it 
         if(len(neighbours) != 0):
             randomNeighbour = random.choice(neighbours)
-            connect(randomWall, randomNeighbour)
+            connect(randomWall, randomNeighbour, root, c, tiles, col_width, row_height)
         
         #update the set of adjacent walls
         unvisitedCells.update(adjacentWalls(randomWall))
@@ -87,25 +101,4 @@ def createMaze(rows, cols):
         #remove the choose wall since now it is a path
         unvisitedCells.remove(randomWall)
 
-    #print the maze
-    for i in range(rows):
-        for j in range(cols):
-            print(grid[i][j], end =" ")
-        print("\n")
-
-createMaze(11, 11)
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
+    return grid
