@@ -16,12 +16,13 @@ class Cell:
         return hash(17*self.x+31*self.y)
 
 
+#left right top down the directions of adjacent cells which is at a distance 2
 directions = [[0, -2], [0, 2], [2, 0], [-2, 0]]
 grid = []
 
 #check if it is a valid cell
 def valid(x, y):
-    return x>=0 and x<len(grid) and y>=0 and y<len(grid[0])
+    return x>=0 and x<len(grid)-1 and y>=0 and y<len(grid[0])-1
 
 #find's all the adjacent cells which are either 1->wall or 0->path according to the choice
 def adjacentCells(cell, wall):
@@ -90,12 +91,9 @@ def createMaze(rows, cols):
     for i in range(rows):
         for j in range(cols):
             print(grid[i][j], end =" ")
-        print(0)
-        # print("\n")
-    for i in range(rows+1):
-        print(0, end =" ")
+        print("\n")
 
-createMaze(10, 10)
+createMaze(11, 11)
 
 
     
