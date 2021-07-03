@@ -6,7 +6,8 @@ from maze_solver import *
 
 # create the graphics window  
 root = tk.Tk()
-root.geometry("300x300")
+root.title("Labyrinth Decipher")
+root.geometry("300x100")
 
 # declaring int variable for storing rows and cols
 ROWS = tk.StringVar()
@@ -17,7 +18,7 @@ def submit():
 
 # creating a label for rows using widget Label
 rows_label = tk.Label(root, text = 'Number Of Rows', font=('calibre',10, 'bold'))
-  
+
 # creating a entry for input rows using widget Entry
 rows_entry = tk.Entry(root,textvariable = ROWS, font=('calibre',10,'normal'))
   
@@ -29,10 +30,11 @@ cols_entry = tk.Entry(root, textvariable = COLS, font = ('calibre',10,'normal'))
   
 # creating a button using the widget
 # Button that will call the submit function
-sub_btn = tk.Button(root,text = 'Submit', command = submit)
-  
+sub_btn = tk.Button(root, text = 'Submit', command = submit)
+
+
 # placing the label and entry in the required position using grid method
-rows_label.grid(row=0,column=0)
+rows_label.grid(row=0,column=0, sticky='w')
 rows_entry.grid(row=0,column=1)
 cols_label.grid(row=1,column=0)
 cols_entry.grid(row=1,column=1)
@@ -42,7 +44,8 @@ root.mainloop()
 
 # ---end of input of rows and colums---
 
-# ---Creat the maze---
+
+# ---Creat and Solve the maze---
 
 #rows and cols in int type
 rows = int(ROWS.get())
@@ -64,6 +67,8 @@ tiles = [[None for _ in range(cols)] for _ in range(rows)]
 
 # window for the maze generation
 root = tk.Tk()
+root.title("Labyrinth Decipher")
+
 # canvas to draw the maze
 c = tk.Canvas(root, width=cols*col_width, height=rows*row_height, borderwidth=0, background='black')
 c.pack()

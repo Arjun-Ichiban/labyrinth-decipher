@@ -75,9 +75,10 @@ def createMaze(rows, cols, root, c, tiles,  row_height, col_width):
     draw(0, 0, root, c, tiles, row_height, col_width)
     draw(0, 1, root, c, tiles, row_height, col_width)
     time.sleep(0.2)
+
     # ---Prim's Algorithm---
 
-    # starting point (1, 1)
+    # starting point of the algorithm (1, 1)
     x = 1
     y = 1
     sp = Cell(1, 1)
@@ -109,6 +110,7 @@ def createMaze(rows, cols, root, c, tiles,  row_height, col_width):
         # remove the choose wall since now it is a path
         unvisitedCells.remove(randomWall)
 
+    # exit point make it as a path
     grid[rows-1][cols-1] = grid[rows-1][cols-2] = 1
     draw(rows-1, cols-1, root, c, tiles, row_height, col_width)
     draw(rows-1, cols-2, root, c, tiles, row_height, col_width)
