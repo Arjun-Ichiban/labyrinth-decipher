@@ -45,26 +45,33 @@ def valid(x, y):
     return x>=0 and x<len(grid) and y>=0 and y<len(grid[0])
 
 # create the tile on the canvas
-def draw(x, y, root, c, tiles, row_height, col_width):
-    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="green2")
+def draw(x, y, root, c, tiles, row_height, col_width, colour):
+    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill=colour)
     root.update_idletasks()               
     root.update()
 
-def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width):
+# start_x and start_y is the starting point in the maze
+# end_x and end_y is the ending point in the maze
+
+def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width, start_x, start_y, end_x, end_y):
     global grid
     grid = grid1
     initializeArrays(rows, cols)
 
-    dist[0][0] = 0
+    dist[start_x][start_y] = 0
 
     # ---Dijstra's algorithm using heap data structure---
     
     heap = []
-    heapq.heappush(heap, Distance(0, 0, 0))
+    heapq.heappush(heap, Distance(start_x, start_y, 0))
 
     while(len(heap)):
         # take the cell with the minimum distance
         min = heapq.heappop(heap)
+
+        if not((min.x==start_x and min.y==start_y) or(min.x==end_x and min.y==end_y)):
+            draw(min.x, min.y, root, c, tiles, row_height, col_width, "lawngreen")
+            time.sleep(0.1)
 
         # find it's adjacent cell
         for d in direction:
@@ -77,36 +84,30 @@ def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width):
                 if(min.dis+1<dist[x][y]):
                     dist[x][y] = min.dis+1
                     parent[x][y] = Cell(min.x, min.y)
+                    
                     heapq.heappush(heap, Distance(x, y, dist[x][y]))
 
     # Print the path if it exist's
     if(dist[rows-1][cols-1]==max):
         print("Path Not Found")
     else:
-        finalPath=[[0 for x in range(rows)] for y in range(cols)]
-        x = rows-1
-        y = cols-1
+        par = parent[end_x][end_y]
+        x = par.x
+        y = par.y
 
-        # to find the shortest path
+        # the shortest path
         # we are travelling from the ending point to the starting point using the parent array
-        while(not(x==0 and y==0)):
-            finalPath[x][y] = 1
+        while(not(x==start_x and y==start_y)):
             par = parent[x][y]
 
-            draw(x, y, root, c, tiles, row_height, col_width)
+            #draw the shortest path on the canvas (graphics)
+            draw(x, y, root, c, tiles, row_height, col_width, "green4")
             time.sleep(0.1)
+
             x = par.x
             y = par.y
 
-        # finalPath[0][0] = 1
-        draw(0, 0, root, c, tiles, row_height, col_width)
+        #draw(start_x, start_y, root, c, tiles, row_height, col_width)
         time.sleep(0.1)
-
-        # #print the finalpath array 
-        # for i in range(rows):
-        #     for j in range(cols):
-        #         print(finalPath[i][j], end=" ")
-        #     print("\n")
-
 
 # solveMaze(11, 11)

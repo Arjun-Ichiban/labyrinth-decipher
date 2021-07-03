@@ -76,7 +76,48 @@ c.pack()
 # maze is generated
 grid = createMaze(rows, cols, root, c, tiles,  row_height, col_width)
 
-# maze is solved -> finds the shortes path
-solveMaze(rows, cols, grid, root, c, tiles, row_height, col_width)
+# get the starting and ending point from the user through the graphics
+start_x = 0
+start_y = 0
+end_x = rows-1
+end_y = cols-1
 
+# to keep track so that the user can select only 2 points
+count  = 0
+
+def callback(event):
+    global count
+    global start_x, start_y, end_x, end_y
+    
+    # Calculate column and row number
+    col = int(event.x//col_width)
+    row = int(event.y//row_height)
+
+    # Check if the selected tile is a path
+    if grid[row][col]==1:
+        count=count+1
+        # the first selected point is the starting point
+        if count==1:
+            start_x = row
+            start_y = col
+        # the second selected point is the ending point
+        else:
+            end_x = row
+            end_y = col
+        
+        # mark the starting and ending point
+        tiles[row][col] = c.create_rectangle(col*col_width, row*row_height, (col+1)*col_width, (row+1)*row_height, fill="green4")
+        tiles[row][col] = c.create_oval(col*col_width, row*row_height, (col+1)*col_width, (row+1)*row_height, fill="green4")
+        root.update_idletasks()               
+        root.update()
+
+    # if count == 2:
+    # solve the maze -> finds the shortes path
+    if count == 2:
+        time.sleep(0.4)
+        solveMaze(rows, cols, grid, root, c, tiles, row_height, col_width, start_x, start_y, end_x, end_y)
+        c.unbind("<Button-1>")
+
+c.bind("<Button-1>", callback)
+    
 root.mainloop()
