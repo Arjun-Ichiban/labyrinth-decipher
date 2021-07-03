@@ -45,19 +45,23 @@ def adjacentWalls(cell):
 def adjacentPaths(cell):
     return adjacentCells(cell, 1)
 
+# create the tile on the canvas
+def draw(x, y, root, c, tiles, col_width, row_height):
+    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="white")
+    root.update_idletasks()               
+    root.update()
+
 #connect's the two cells making it a path (makes the cells in between the two cells a path)
 def connect(cell1, cell2, root, c, tiles, col_width, row_height):
     grid[cell1.x][cell1.y] = 1
     #grid[cell2.x][cell2.y] = 1
-    x = (cell1.x+cell2.x)//2
-    y = (cell1.y+cell2.y)//2
+    x = int((cell1.x+cell2.x)/2)
+    y = int((cell1.y+cell2.y)/2)
     grid[x][y] = 1
     xx = cell1.x
     yy = cell1.y
-    tiles[xx][yy] = c.create_rectangle(yy*col_width, xx*row_height, (yy+1)*col_width, (xx+1)*row_height, fill="white")
-    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="white")
-    root.update_idletasks()               
-    root.update()
+    draw(x, y, root, c, tiles, col_width, row_height)
+    draw(xx, yy, root, c, tiles, col_width, row_height)
     time.sleep(0.2)
 
 def createMaze(rows, cols, root, c, tiles, col_width, row_height):
@@ -65,7 +69,7 @@ def createMaze(rows, cols, root, c, tiles, col_width, row_height):
     global grid
     # 0 -> wall 1 -> path
     
-    grid=[[0 for x in range(rows)] for y in range(cols)]
+    grid=[[0 for x in range(cols)] for y in range(rows)]
 
     #Prim's Algorithm
 

@@ -2,6 +2,7 @@
 
 import sys
 import heapq
+import time
 
 #Distance class is stores the distance of the cell form the entry point (used in heap)
 class Distance:
