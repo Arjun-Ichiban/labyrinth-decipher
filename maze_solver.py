@@ -36,8 +36,8 @@ parent = []
 # and parent as -1, -1
 def initializeArrays(rows, cols):
     global dist, parent
-    dist=[[infinite for x in range(rows)] for y in range(cols)]
-    parent=[[Cell(-1, -1) for x in range(rows)] for y in range(cols)]
+    dist=[[infinite for x in range(cols)] for y in range(rows)]
+    parent=[[Cell(-1, -1) for x in range(cols)] for y in range(rows)]
     
     
 # check if it is a valid cell
