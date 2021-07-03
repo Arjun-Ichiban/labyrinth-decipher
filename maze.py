@@ -9,8 +9,8 @@ root = tk.Tk()
 root.geometry("300x300")
 
 # declaring int variable for storing rows and cols
-ROWS = tk.IntVar()
-COLS = tk.IntVar()
+ROWS = tk.StringVar()
+COLS = tk.StringVar()
 
 def submit():
     root.destroy()
@@ -45,8 +45,8 @@ root.mainloop()
 # ---Creat the maze---
 
 #rows and cols in int type
-rows = ROWS.get()
-cols = COLS.get()
+rows = int(ROWS.get())
+cols = int(COLS.get())
 
 #we need the rows and cols to be odd
 if rows%2==0:
@@ -71,9 +71,7 @@ c.pack()
 # maze is generated
 grid = createMaze(rows, cols, root, c, tiles,  row_height, col_width)
 
+# maze is solved -> finds the shortes path
+solveMaze(rows, cols, grid, root, c, tiles, row_height, col_width)
 
 root.mainloop()
-
-
-
-# # solveMaze(11, 11, grid)

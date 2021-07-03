@@ -45,7 +45,13 @@ def initializeArrays(rows, cols):
 def valid(x, y):
     return x>=0 and x<len(grid) and y>=0 and y<len(grid[0])
 
-def solveMaze(rows, cols, grid1):
+# create the tile on the canvas
+def draw(x, y, root, c, tiles, row_height, col_width):
+    tiles[x][y] = c.create_rectangle(y*col_width, x*row_height, (y+1)*col_width, (x+1)*row_height, fill="green2")
+    root.update_idletasks()               
+    root.update()
+
+def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width):
     global grid
     grid = grid1
     initializeArrays(rows, cols)
@@ -86,16 +92,21 @@ def solveMaze(rows, cols, grid1):
         while(not(x==0 and y==0)):
             finalPath[x][y] = 1
             par = parent[x][y]
+
+            draw(x, y, root, c, tiles, row_height, col_width)
+            time.sleep(0.1)
             x = par.x
             y = par.y
 
-        finalPath[0][0] = 1
+        # finalPath[0][0] = 1
+        draw(0, 0, root, c, tiles, row_height, col_width)
+        time.sleep(0.1)
 
-        #print the finalpath array 
-        for i in range(rows):
-            for j in range(cols):
-                print(finalPath[i][j], end=" ")
-            print("\n")
+        # #print the finalpath array 
+        # for i in range(rows):
+        #     for j in range(cols):
+        #         print(finalPath[i][j], end=" ")
+        #     print("\n")
 
 
 # solveMaze(11, 11)
