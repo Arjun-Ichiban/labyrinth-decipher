@@ -9,7 +9,7 @@ root = tk.Tk()
 root.title("Labyrinth Decipher")
 root.geometry("300x100")
 
-# declaring int variable for storing rows and cols
+# declaring String variable for storing rows and cols
 ROWS = tk.StringVar()
 COLS = tk.StringVar()
 
@@ -19,13 +19,13 @@ def submit():
 # creating a label for rows using widget Label
 rows_label = tk.Label(root, text = 'Number Of Rows', font=('calibre',10, 'bold'))
 
-# creating a entry for input rows using widget Entry
+# creating a entry to input rows using widget Entry
 rows_entry = tk.Entry(root,textvariable = ROWS, font=('calibre',10,'normal'))
   
 # creating a label for columns
 cols_label = tk.Label(root, text = 'Number Of Columns', font = ('calibre',10,'bold'))
   
-# creating a entry for password
+# creating a entry to input columns
 cols_entry = tk.Entry(root, textvariable = COLS, font = ('calibre',10,'normal'))
   
 # creating a button using the widget
@@ -118,6 +118,7 @@ def callback(event):
         solveMaze(rows, cols, grid, root, c, tiles, row_height, col_width, start_x, start_y, end_x, end_y)
         c.unbind("<Button-1>")
 
+# to enable clickable window so that the user can choose the starting and ending points
 c.bind("<Button-1>", callback)
     
 root.mainloop()

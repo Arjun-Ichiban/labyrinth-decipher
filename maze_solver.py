@@ -52,6 +52,7 @@ def draw(x, y, root, c, tiles, row_height, col_width, colour):
 
 # start_x and start_y is the starting point in the maze
 # end_x and end_y is the ending point in the maze
+# as choosen by the user
 
 def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width, start_x, start_y, end_x, end_y):
     global grid
@@ -80,11 +81,10 @@ def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width, start_x,
  
             # if the adjacent cell is valid and it is a path check it's distance with the new distance
             if(valid(x, y) and grid[x][y]==1):
-                # if the new distance is lesser then update the dist array and add it to the heap 
+                # if the new distance is lesser, then update the dist array and add it to the heap 
                 if(min.dis+1<dist[x][y]):
                     dist[x][y] = min.dis+1
                     parent[x][y] = Cell(min.x, min.y)
-                    
                     heapq.heappush(heap, Distance(x, y, dist[x][y]))
 
     # Print the path if it exist's
@@ -107,7 +107,4 @@ def solveMaze(rows, cols, grid1, root, c, tiles, row_height, col_width, start_x,
             x = par.x
             y = par.y
 
-        #draw(start_x, start_y, root, c, tiles, row_height, col_width)
         time.sleep(0.1)
-
-# solveMaze(11, 11)

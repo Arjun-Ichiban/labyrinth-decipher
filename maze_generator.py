@@ -63,6 +63,7 @@ def connect(cell1, cell2, root, c, tiles, col_width, row_height):
     draw(xx, yy, root, c, tiles,  row_height, col_width)
     time.sleep(0.1)
 
+# to the create a random maze
 def createMaze(rows, cols, root, c, tiles,  row_height, col_width):
 
     global grid
@@ -76,7 +77,7 @@ def createMaze(rows, cols, root, c, tiles,  row_height, col_width):
     draw(0, 1, root, c, tiles, row_height, col_width)
     time.sleep(0.2)
 
-    # ---Prim's Algorithm---
+    # ---Prim's Algorithm--- #
 
     # starting point of the algorithm (1, 1)
     x = 1
