@@ -1,0 +1,22 @@
+function solveMaze(rows, cols, grid, start_x, start_y, end_x, end_y)
+
+    for each row r in grid:	        // Initialization
+        for each col c in grid:
+	        dist[r][c] := infinity      // initial distance from source to vertex v is set to infinite
+	        parent[r][c] := (-1, -1)    // initial parent is (-1, -1)
+
+    
+    dist[start_x][start_y] := 0	    // Distance from source to source
+
+    HEAP := priority queue which has unvisited cell 	// the cell in the grid are unoptimized - thus are in heap
+
+    while HEAP is not empty:	// main loop
+    	min := cell in grid with smallest dist[ ][ ]
+        remove min from HEAP
+
+        for each adjacent cell (x,y) of min:	// where (x, y) has not yet been removed from HEAP.
+            
+            if (x,y) is valid and grid[x][y] is a path      //check if the adjacent cell does not go out of bound and that cell has a path
+                if dist[x][y] > dist_of(min) + dist_between(min, (x,y))
+                    update the dist[x][y]
+                    add (x,y) to the HEAP
