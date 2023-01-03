@@ -3,17 +3,26 @@ Randomized Prim's algorithm
 function createMaze(rows, cols)
 
     grid[][] := where 1->path 0-> wall
-    grid := 1   \\ Start with a grid full of walls. 
+
+    \\ Start with a grid full of walls.
+    grid := 1    
 
     unvistedCells :- A set containing unvisited wall
     Pick a cell, mark it as part of the maze. Add the adjacent walls at a distance 2 of the cell to the unvisitedCells list.
 
     while unvisitedCells is not empty:
 
-        randamWall  \\pick a random wall from the unvistedCells list
-        neigbourPath    \\pick a random neighbour of the randamWall which is a path 
+        \\pick a random wall from the unvistedCells list
+        randamWall  
 
-        connect(randomWall, neigbourPath)   \\make the random wall and the cell in between the randomWall and neigbourPath as a path
-        update the unvistedCells    \\add the new adjacent walls of the randomWall(which is now a path) to the unvistedCells list
+        \\pick a random neighbour of the randamWall which is a path 
+        neigbourPath    
+
+        \\make the random wall and the cell in between the randomWall and neigbourPath as a path
+        connect(randomWall, neigbourPath)   
+
+        \\add the new adjacent walls of the randomWall(which is now a path) to the
+        update the unvistedCells    
+        unvistedCells list
 
         remove randomWall from unvistedCells
